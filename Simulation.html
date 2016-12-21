@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simulation package &#8212; py_proj_transport 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dataStructures package" href="dataStructures.html" />
+    <link rel="prev" title="Configuration package" href="Configuration.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dataStructures.html" title="dataStructures package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Configuration.html" title="Configuration package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="simulation-package">
+<h1>Simulation package<a class="headerlink" href="#simulation-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-Simulation.Line">
+<span id="simulation-line-module"></span><h2>Simulation.Line module<a class="headerlink" href="#module-Simulation.Line" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Simulation.Line.Line">
+<em class="property">class </em><code class="descclassname">Simulation.Line.</code><code class="descname">Line</code><span class="sig-paren">(</span><em>graph</em>, <em>number</em>, <em>timetable: map</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Line.html#Line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Line.Line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="Simulation.Line.Line.from_config">
+<em class="property">static </em><code class="descname">from_config</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Line.html#Line.from_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Line.Line.from_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a line from config data
+&#64;:param configuration</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Simulation.Line.Line.get_path">
+<code class="descname">get_path</code><span class="sig-paren">(</span><em>node1</em>, <em>node2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Line.html#Line.get_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Line.Line.get_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates path from node1 to node2
+:param node1:
+:param node2:
+:return: list of all nodes between</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Simulation.Simulation">
+<span id="simulation-simulation-module"></span><h2>Simulation.Simulation module<a class="headerlink" href="#module-Simulation.Simulation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Simulation.Simulation.Simulation">
+<em class="property">class </em><code class="descclassname">Simulation.Simulation.</code><code class="descname">Simulation</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Simulation.html#Simulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Simulation.Simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="Simulation.Simulation.Simulation.open_window">
+<code class="descname">open_window</code><span class="sig-paren">(</span><em>configData</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Simulation.html#Simulation.open_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Simulation.Simulation.open_window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Simulation.Simulation.Simulation.recalculate">
+<code class="descname">recalculate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Simulation.html#Simulation.recalculate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Simulation.Simulation.recalculate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Simulation.Simulation.Simulation.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><em>window</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Simulation.html#Simulation.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Simulation.Simulation.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Simulation.Simulation.Simulation.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Simulation/Simulation.html#Simulation.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Simulation.Simulation.Simulation.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Simulation">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Simulation" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Simulation package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-Simulation.Line">Simulation.Line module</a></li>
+<li><a class="reference internal" href="#module-Simulation.Simulation">Simulation.Simulation module</a></li>
+<li><a class="reference internal" href="#module-Simulation">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Configuration.html"
+                        title="previous chapter">Configuration package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dataStructures.html"
+                        title="next chapter">dataStructures package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Simulation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dataStructures.html" title="dataStructures package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Configuration.html" title="Configuration package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Anna gese, Marcin Malinowski, Bartosz Soból.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>
