@@ -27,6 +27,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="core.simulation.generators package" href="core.simulation.generators.html" />
     <link rel="prev" title="core.data_structures package" href="core.data_structures.html" /> 
   </head>
   <body role="document">
@@ -39,6 +40,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="core.simulation.generators.html" title="core.simulation.generators package"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="core.data_structures.html" title="core.data_structures package"
              accesskey="P">previous</a> |</li>
@@ -54,22 +58,68 @@
             
   <div class="section" id="core-simulation-package">
 <h1>core.simulation package<a class="headerlink" href="#core-simulation-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="core.simulation.generators.html">core.simulation.generators package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.simulation.generators.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.simulation.generators.html#module-core.simulation.generators.bus_generator">core.simulation.generators.bus_generator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.simulation.generators.html#module-core.simulation.generators">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-core.simulation.bus_collector">
+<span id="core-simulation-bus-collector-module"></span><h2>core.simulation.bus_collector module<a class="headerlink" href="#module-core.simulation.bus_collector" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.simulation.bus_collector.BusCollector">
+<em class="property">class </em><code class="descclassname">core.simulation.bus_collector.</code><code class="descname">BusCollector</code><a class="reference internal" href="_modules/core/simulation/bus_collector.html#BusCollector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.bus_collector.BusCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-core.simulation.line">
 <span id="core-simulation-line-module"></span><h2>core.simulation.line module<a class="headerlink" href="#module-core.simulation.line" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="core.simulation.line.Line">
-<em class="property">class </em><code class="descclassname">core.simulation.line.</code><code class="descname">Line</code><span class="sig-paren">(</span><em>number</em>, <em>bus_capacity</em>, <em>graph1</em>, <em>frequency1</em>, <em>graph2</em>, <em>frequency2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/line.html#Line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.line.Line" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.simulation.line.</code><code class="descname">Line</code><span class="sig-paren">(</span><em>number</em>, <em>bus_capacity</em>, <em>frequency1</em>, <em>frequency2</em>, <em>route1</em>, <em>route2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/line.html#Line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.line.Line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="core.simulation.line.Line.get_path">
-<code class="descname">get_path</code><span class="sig-paren">(</span><em>node1</em>, <em>node2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/line.html#Line.get_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.line.Line.get_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates path from node1 to node2
-:param node1:
-:param node2:
-:return: list of all nodes between</p>
+<dt id="core.simulation.line.Line.get_first_stop">
+<code class="descname">get_first_stop</code><span class="sig-paren">(</span><em>route</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/line.html#Line.get_first_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.line.Line.get_first_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.line.Line.get_last_stop">
+<code class="descname">get_last_stop</code><span class="sig-paren">(</span><em>route</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/line.html#Line.get_last_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.line.Line.get_last_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.line.Line.tick">
+<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/line.html#Line.tick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.line.Line.tick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.simulation.line.LineStop">
+<em class="property">class </em><code class="descclassname">core.simulation.line.</code><code class="descname">LineStop</code><span class="sig-paren">(</span><em>name</em>, <em>time_to_next_stop</em><span class="sig-paren">)</span><a class="headerlink" href="#core.simulation.line.LineStop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="core.simulation.line.LineStop.name">
+<code class="descname">name</code><a class="headerlink" href="#core.simulation.line.LineStop.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.simulation.line.LineStop.time_to_next_stop">
+<code class="descname">time_to_next_stop</code><a class="headerlink" href="#core.simulation.line.LineStop.time_to_next_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
 </dd></dl>
 
 </dd></dl>
@@ -79,11 +129,60 @@
 <span id="core-simulation-simulation-module"></span><h2>core.simulation.simulation module<a class="headerlink" href="#module-core.simulation.simulation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="core.simulation.simulation.Simulation">
-<em class="property">class </em><code class="descclassname">core.simulation.simulation.</code><code class="descname">Simulation</code><span class="sig-paren">(</span><em>configuration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.simulation.simulation.</code><code class="descname">Simulation</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="core.simulation.simulation.Simulation.start">
-<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.start" title="Permalink to this definition">¶</a></dt>
+<dt id="core.simulation.simulation.Simulation.clean_buses">
+<code class="descname">clean_buses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.clean_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.clean_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.simulation.Simulation.create_graph">
+<code class="descname">create_graph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.create_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.create_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>A - 1 - B - 2 - C - 1 - D
+|       |
+1       5
+|       |
+E - 1 - F</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.simulation.Simulation.create_lines">
+<code class="descname">create_lines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.create_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.create_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.simulation.Simulation.generate_buses">
+<code class="descname">generate_buses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.generate_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.generate_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.simulation.Simulation.mainloop">
+<code class="descname">mainloop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.mainloop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.mainloop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.simulation.Simulation.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.simulation.simulation.Simulation.update_buses">
+<code class="descname">update_buses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/simulation.html#Simulation.update_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.simulation.Simulation.update_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-core.simulation.status_printer">
+<span id="core-simulation-status-printer-module"></span><h2>core.simulation.status_printer module<a class="headerlink" href="#module-core.simulation.status_printer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="core.simulation.status_printer.StatusPrinter">
+<em class="property">class </em><code class="descclassname">core.simulation.status_printer.</code><code class="descname">StatusPrinter</code><a class="reference internal" href="_modules/core/simulation/status_printer.html#StatusPrinter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.status_printer.StatusPrinter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="core.simulation.status_printer.StatusPrinter.print">
+<code class="descname">print</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/status_printer.html#StatusPrinter.print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.status_printer.StatusPrinter.print" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -103,9 +202,12 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">core.simulation package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-core.simulation.bus_collector">core.simulation.bus_collector module</a></li>
 <li><a class="reference internal" href="#module-core.simulation.line">core.simulation.line module</a></li>
 <li><a class="reference internal" href="#module-core.simulation.simulation">core.simulation.simulation module</a></li>
+<li><a class="reference internal" href="#module-core.simulation.status_printer">core.simulation.status_printer module</a></li>
 <li><a class="reference internal" href="#module-core.simulation">Module contents</a></li>
 </ul>
 </li>
@@ -114,6 +216,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="core.data_structures.html"
                         title="previous chapter">core.data_structures package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="core.simulation.generators.html"
+                        title="next chapter">core.simulation.generators package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -144,6 +249,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="core.simulation.generators.html" title="core.simulation.generators package"
+             >next</a> |</li>
         <li class="right" >
           <a href="core.data_structures.html" title="core.data_structures package"
              >previous</a> |</li>

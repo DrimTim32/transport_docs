@@ -64,8 +64,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__edges</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;:type: list[Edge]&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__edges</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: list[Edge]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">distance_vectors</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="Node.add_or_update_neighbour"><a class="viewcode-back" href="../../../core.data_structures.html#core.data_structures.graph.Node.add_or_update_neighbour">[docs]</a>    <span class="k">def</span> <span class="nf">add_or_update_neighbour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
@@ -158,8 +157,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :type nodes :  List[Node]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="c1"># :type __graph: Dict[str,Node]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: dict[str,Node]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__populate_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Graph.get_path_between"><a class="viewcode-back" href="../../../core.data_structures.html#core.data_structures.graph.Graph.get_path_between">[docs]</a>    <span class="k">def</span> <span class="nf">get_path_between</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_name</span><span class="p">,</span> <span class="n">destination_name</span><span class="p">):</span>

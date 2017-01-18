@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core.data_structures.transport_structures &#8212; py_proj_transport 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for core.data_structures.transport_structures</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="PassengersGroup"><a class="viewcode-back" href="../../../core.data_structures.html#core.data_structures.transport_structures.PassengersGroup">[docs]</a><span></span><span class="k">class</span> <span class="nc">PassengersGroup</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Group of passengers going to the same bus stop</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop_name</span><span class="p">,</span> <span class="n">group_count</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inits passenger group</span>
+<span class="sd">        :param stop_name: destination stop name</span>
+<span class="sd">        :param group_count: how much passengers are going to destination</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_name</span> <span class="o">=</span> <span class="n">stop_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">group_count</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">PassengersGroup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">count</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Bus"><a class="viewcode-back" href="../../../core.data_structures.html#core.data_structures.transport_structures.Bus">[docs]</a><span class="k">class</span> <span class="nc">Bus</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bus class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">route</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line</span> <span class="o">=</span> <span class="n">line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">route</span> <span class="o">=</span> <span class="n">route</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ticks_to_next_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span><span class="p">]</span><span class="o">.</span><span class="n">time_to_next_stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ticks_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">route_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Bus.move"><a class="viewcode-back" href="../../../core.data_structures.html#core.data_structures.transport_structures.Bus.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticks_count</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticks_to_next_stop</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">route_len</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ticks_to_next_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span><span class="p">]</span><span class="o">.</span><span class="n">time_to_next_stop</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">route_len</span> <span class="o">-</span> <span class="mi">1</span>  <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ticks_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ticks_count</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Bus.time_to_next_stop"><a class="viewcode-back" href="../../../core.data_structures.html#core.data_structures.transport_structures.Bus.time_to_next_stop">[docs]</a>    <span class="k">def</span> <span class="nf">time_to_next_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticks_to_next_stop</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticks_count</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Anna gese, Marcin Malinowski, Bartosz Soból.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>

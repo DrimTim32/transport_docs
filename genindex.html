@@ -61,8 +61,11 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
+ | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
@@ -80,12 +83,22 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.data_structures.html#core.data_structures.graph.Graph.bfs">bfs() (core.data_structures.graph.Graph method)</a>
 </li>
+      <li><a href="core.data_structures.html#core.data_structures.transport_structures.Bus">Bus (class in core.data_structures.transport_structures)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.bus_collector.BusCollector">BusCollector (class in core.simulation.bus_collector)</a>
+</li>
+      <li><a href="core.simulation.generators.html#core.simulation.generators.bus_generator.BusGenerator">BusGenerator (class in core.simulation.generators.bus_generator)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.clean_buses">clean_buses() (core.simulation.simulation.Simulation method)</a>
+</li>
       <li><a href="core.configuration.html#core.configuration.config.Config">Config (class in core.configuration.config)</a>
 </li>
       <li><a href="core.data_structures.html#core.data_structures.graph.connect_both">connect_both() (in module core.data_structures.graph)</a>
@@ -98,19 +111,33 @@
 </li>
       <li><a href="core.configuration.html#module-core.configuration.config">core.configuration.config (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.data_structures.html#module-core.data_structures">core.data_structures (module)</a>
 </li>
       <li><a href="core.data_structures.html#module-core.data_structures.graph">core.data_structures.graph (module)</a>
 </li>
+      <li><a href="core.data_structures.html#module-core.data_structures.transport_structures">core.data_structures.transport_structures (module)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.html#module-core.main">core.main (module)</a>
 </li>
       <li><a href="core.simulation.html#module-core.simulation">core.simulation (module)</a>
 </li>
+      <li><a href="core.simulation.html#module-core.simulation.bus_collector">core.simulation.bus_collector (module)</a>
+</li>
+      <li><a href="core.simulation.generators.html#module-core.simulation.generators">core.simulation.generators (module)</a>
+</li>
+      <li><a href="core.simulation.generators.html#module-core.simulation.generators.bus_generator">core.simulation.generators.bus_generator (module)</a>
+</li>
       <li><a href="core.simulation.html#module-core.simulation.line">core.simulation.line (module)</a>
 </li>
       <li><a href="core.simulation.html#module-core.simulation.simulation">core.simulation.simulation (module)</a>
+</li>
+      <li><a href="core.simulation.html#module-core.simulation.status_printer">core.simulation.status_printer (module)</a>
+</li>
+      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.create_graph">create_graph() (core.simulation.simulation.Simulation method)</a>
+</li>
+      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.create_lines">create_lines() (core.simulation.simulation.Simulation method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -142,12 +169,18 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.simulation.html#core.simulation.line.Line.get_path">get_path() (core.simulation.line.Line method)</a>
+      <li><a href="core.simulation.generators.html#core.simulation.generators.bus_generator.BusGenerator.generate_bus">generate_bus() (core.simulation.generators.bus_generator.BusGenerator method)</a>
 </li>
-      <li><a href="core.data_structures.html#core.data_structures.graph.Graph.get_path_between">get_path_between() (core.data_structures.graph.Graph method)</a>
+      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.generate_buses">generate_buses() (core.simulation.simulation.Simulation method)</a>
+</li>
+      <li><a href="core.simulation.html#core.simulation.line.Line.get_first_stop">get_first_stop() (core.simulation.line.Line method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.line.Line.get_last_stop">get_last_stop() (core.simulation.line.Line method)</a>
+</li>
+      <li><a href="core.data_structures.html#core.data_structures.graph.Graph.get_path_between">get_path_between() (core.data_structures.graph.Graph method)</a>
+</li>
       <li><a href="core.data_structures.html#core.data_structures.graph.Graph">Graph (class in core.data_structures.graph)</a>
 </li>
       <li><a href="core.configuration.html#core.configuration.config.Config.graph_dict">graph_dict (core.configuration.config.Config attribute)</a>
@@ -160,11 +193,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.data_structures.html#core.data_structures.graph.NodeLengthPair.length">length (core.data_structures.graph.NodeLengthPair attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.simulation.html#core.simulation.line.Line">Line (class in core.simulation.line)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="core.configuration.html#core.configuration.config.Config.lines_list">lines_list (core.configuration.config.Config attribute)</a>
+</li>
+      <li><a href="core.simulation.html#core.simulation.line.LineStop">LineStop (class in core.simulation.line)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -175,11 +210,19 @@
       <li><a href="core.html#core.main.main">main() (in module core.main)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.mainloop">mainloop() (core.simulation.simulation.Simulation method)</a>
+</li>
+      <li><a href="core.data_structures.html#core.data_structures.transport_structures.Bus.move">move() (core.data_structures.transport_structures.Bus method)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.line.LineStop.name">name (core.simulation.line.LineStop attribute)</a>
+</li>
       <li><a href="core.data_structures.html#core.data_structures.graph.Node.neighbours">neighbours (core.data_structures.graph.Node attribute)</a>
 </li>
       <li><a href="core.data_structures.html#core.data_structures.graph.Node">Node (class in core.data_structures.graph)</a>
@@ -193,6 +236,18 @@
 </li>
       </ul></li>
       <li><a href="core.data_structures.html#core.data_structures.graph.NodeLengthPair">NodeLengthPair (class in core.data_structures.graph)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.data_structures.html#core.data_structures.transport_structures.PassengersGroup">PassengersGroup (class in core.data_structures.transport_structures)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.status_printer.StatusPrinter.print">print() (core.simulation.status_printer.StatusPrinter method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -212,7 +267,33 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.start">start() (core.simulation.simulation.Simulation method)</a>
+      <li><a href="core.simulation.html#core.simulation.status_printer.StatusPrinter">StatusPrinter (class in core.simulation.status_printer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.line.Line.tick">tick() (core.simulation.line.Line method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.line.LineStop.time_to_next_stop">time_to_next_stop (core.simulation.line.LineStop attribute)</a>
+</li>
+      <li><a href="core.data_structures.html#core.data_structures.transport_structures.Bus.time_to_next_stop">time_to_next_stop() (core.data_structures.transport_structures.Bus method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.update">update() (core.simulation.simulation.Simulation method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="core.simulation.html#core.simulation.simulation.Simulation.update_buses">update_buses() (core.simulation.simulation.Simulation method)</a>
 </li>
   </ul></td>
 </tr></table>
