@@ -1,65 +1,70 @@
 <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
 <font face="arial">
-<h2>Symulacja komunikacji miejskiej – opis projektu</h2>
+<h2>Symulacja komunikacji miejskiej â€“ opis projektu</h2>
 
-<h4>Projekt zak³ada³ stworzenie wizualizacji ruchu komunikacji miejskiej.</h4>
+<h4>Projekt zakÅ‚adaÅ‚ stworzenie wizualizacji ruchu komunikacji miejskiej.</h4>
 
-Danymi wejœciowymi do programu s¹ nastêpuj¹ce informacje zawarte w pliku config.json:
+Danymi wejÅ›ciowymi do programu sÄ… nastÄ™pujÄ…ce informacje zawarte w pliku config.json:
 <ul>
-<li> Tick (liczba typu float) – liczba jednostek czasu(sekund) przypadaj¹cych na jeden skok symulacji – pozwala to u¿ytkownikowi 
-  na stworzenie wizualizacji z ró¿n¹ dok³adnoœci¹ czasow¹
+<li> Tick (liczba typu float) â€“ liczba jednostek czasu(sekund) przypadajÄ…cych na jeden skok symulacji â€“ pozwala to uÅ¼ytkownikowi 
+  na stworzenie wizualizacji z rÃ³Å¼nÄ… dokÅ‚adnoÅ›ciÄ… czasowÄ…
 </li>
-<li>Lista nazw przystanków uwzglêdnionych w wizualizacji
+<li>Lista nazw przystankÃ³w uwzglÄ™dnionych w wizualizacji
 </li>
-<li>Schemat po³¹czeñ miêdzy przystankami – dla ka¿dego przystanku z listy nazw przystanków okreœlane 
-  s¹ przystanki bezpoœrednio z niego osi¹galne oraz czas przejazdu miêdzy nimi
+<li>Schemat poÅ‚Ä…czeÅ„ miÄ™dzy przystankami â€“ dla kaÅ¼dego przystanku z listy nazw przystankÃ³w okreÅ›lane 
+  sÄ… przystanki bezpoÅ›rednio z niego osiÄ…galne oraz czas przejazdu miÄ™dzy nimi
 </li>
 <li> Linie autobusowe:<ul>
 	<li> Identyfikator linii</li>
-	<li> Pojemnoœæ autobusu je¿d¿¹cego na danej linii odpowiadaj¹ca maksymalnej liczbie pasa¿erów, 
-	  która mo¿e siê w nim znajdowaæ – na obu trasach danej linii je¿d¿¹ autobusy o tej samej pojemnoœci</li>
-	<li> Lista przystanków na obu trasach przejazdu (miêdzy dwiema pêtlami autobusowymi) – kolejnoœæ przystanków mo¿e ró¿niæ siê dla obu tras</li>
-	<li> Czêstotliwoœæ odjazdu autobusu z pêtli dla ka¿dej trasy przejazdu oddzielnie (liczba jednostek czasu miêdzy kolejnymi odjazdami)</li>
+	<li> PojemnoÅ›Ä‡ autobusu jeÅ¼dÅ¼Ä…cego na danej linii odpowiadajÄ…ca maksymalnej liczbie pasaÅ¼erÃ³w, 
+	  ktÃ³ra moÅ¼e siÄ™ w nim znajdowaÄ‡ â€“ na obu trasach danej linii jeÅ¼dÅ¼Ä… autobusy o tej samej pojemnoÅ›ci</li>
+	<li> Lista przystankÃ³w na obu trasach przejazdu (miÄ™dzy dwiema pÄ™tlami autobusowymi) â€“ kolejnoÅ›Ä‡ przystankÃ³w moÅ¼e rÃ³Å¼niÄ‡ siÄ™ dla obu tras</li>
+	<li> CzÄ™stotliwoÅ›Ä‡ odjazdu autobusu z pÄ™tli dla kaÅ¼dej trasy przejazdu oddzielnie (liczba jednostek czasu miÄ™dzy kolejnymi odjazdami)</li>
 	</ul>
 </li>
-<li> Dane o natê¿eniu ruchu – dla ka¿dego przystanku z listy przystanków oraz ka¿dego mo¿liwego przystanku docelowego okreœlana jest œrednia 
-  liczba pasa¿erów chc¹cych przejechaæ mierzy tymi przystankami w przeliczeniu na 60 jednostek czasu
+<li> Dane o natÄ™Å¼eniu ruchu â€“ dla kaÅ¼dego przystanku z listy przystankÃ³w oraz kaÅ¼dego moÅ¼liwego przystanku docelowego okreÅ›lana jest Å›rednia 
+  liczba pasaÅ¼erÃ³w chcÄ…cych przejechaÄ‡ mierzy tymi przystankami w przeliczeniu na 60 jednostek czasu
 </li>
 </ul>
 
-Stworzona aplikacja pozwala na wizualizacjê w formie tabel:
+Stworzona aplikacja pozwala na wizualizacjÄ™ w formie tabel:
 <ul>
 <li> Wprowadzonych do systemu linii autobusowych:<ul>
 	<li> id linii</li>
 	<li> przystanek docelowy</li>
 	<li> trasa przejazdu</li>
-	<li> czêstotliwoœæ odjazdu</li>
-	<li> pojemnoœæ autobusów je¿d¿¹cych na danej linii</li>
+	<li> czÄ™stotliwoÅ›Ä‡ odjazdu</li>
+	<li> pojemnoÅ›Ä‡ autobusÃ³w jeÅ¼dÅ¼Ä…cych na danej linii</li>
 	</ul>
 </li>
-<li> Liczby pasa¿erów oczekuj¹cych na danym przystanku z podzia³em na przystanki do których chc¹ dojechaæ</li>
-<li> Stanu wszystkich autobusów uwzglêdnionych w wizualizacji:<ul>
+<li> Liczby pasaÅ¼erÃ³w oczekujÄ…cych na danym przystanku z podziaÅ‚em na przystanki do ktÃ³rych chcÄ… dojechaÄ‡</li>
+<li> Stanu wszystkich autobusÃ³w uwzglÄ™dnionych w wizualizacji:<ul>
 	<li> id autobusu</li>
 	<li> id linii</li>
 	<li> trasa linii</li>
 	<li> przystanek docelowy</li>
-	<li> przystanek, na którym obecnie znajduje siê autobus lub do którego aktualnie siê przemieszcza</li>
-	<li> liczba jednostek czasu potrzebnych do osi¹gniêcia nastêpnego przystanku na trasie</li>
-	<li> liczba pasa¿erów znajduj¹cych siê aktualnie w autobusie</li>
-	<li> maksymalna pojemnoœæ autobusu</li>
+	<li> przystanek, na ktÃ³rym obecnie znajduje siÄ™ autobus lub do ktÃ³rego aktualnie siÄ™ przemieszcza</li>
+	<li> liczba jednostek czasu potrzebnych do osiÄ…gniÄ™cia nastÄ™pnego przystanku na trasie</li>
+	<li> liczba pasaÅ¼erÃ³w znajdujÄ…cych siÄ™ aktualnie w autobusie</li>
+	<li> maksymalna pojemnoÅ›Ä‡ autobusu</li>
 	</ul>
 </li>
 </li>
 </ul>
 <ul>
-Uwagi i za³o¿enia:
-<li> Pasa¿erowie pojawiaj¹ siê na przystankach zgodnie z rozk³adem Poissona</li>
-<li> Na pocz¹tku symulacji autobusy znajduj¹ siê na pêtlach autobusowych</li>
-<li> Wyznaczenie optymalnej trasy dojazdu dla ka¿dego pasa¿era opiera siê o wyznaczenie
-  najkrótszej pod wzglêdem czasu przejazdu drogi miêdzy przystankami; 
-  trasa optymalna uwzglêdnia mo¿liwoœæ przesiadek, jednak nie jest do niej uwzglêdniany czas oczekiwania na autobus</li>
-<li> Wizualizacja jest automatycznie odœwie¿ana co 3 sekundy ale istnieje mo¿liwoœæ manualnego 
-  tymczasowego wstrzymania generowania nowych wyników oraz ponownego wznowienia symulacji </li>
+Uwagi i zaÅ‚oÅ¼enia:
+<li> PasaÅ¼erowie pojawiajÄ… siÄ™ na przystankach zgodnie z rozkÅ‚adem Poissona</li>
+<li> Na poczÄ…tku symulacji autobusy znajdujÄ… siÄ™ na pÄ™tlach autobusowych</li>
+<li> Wyznaczenie optymalnej trasy dojazdu dla kaÅ¼dego pasaÅ¼era opiera siÄ™ o wyznaczenie
+  najkrÃ³tszej pod wzglÄ™dem czasu przejazdu drogi miÄ™dzy przystankami; 
+  trasa optymalna uwzglÄ™dnia moÅ¼liwoÅ›Ä‡ przesiadek, jednak nie jest do niej uwzglÄ™dniany czas oczekiwania na autobus</li>
+<li> Wizualizacja jest automatycznie odÅ›wieÅ¼ana co 3 sekundy ale istnieje moÅ¼liwoÅ›Ä‡ manualnego 
+  tymczasowego wstrzymania generowania nowych wynikÃ³w oraz ponownego wznowienia symulacji </li>
   </ul>
 <font>
+</body>
 </html>
