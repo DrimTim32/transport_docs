@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>simulation.bus &#8212; py_proj_transport 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for simulation.bus</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File containing Bus class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">shuffle</span>
+
+<span class="kn">from</span> <span class="nn">.passenger_group</span> <span class="k">import</span> <span class="n">PassengersGroup</span>
+
+
+<div class="viewcode-block" id="Bus"><a class="viewcode-back" href="../../simulation.html#simulation.bus.Bus">[docs]</a><span class="k">class</span> <span class="nc">Bus</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bus class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">BUS_COUNTER</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">route</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param line: line on which bus will operate</span>
+<span class="sd">        :param route: bus route on line</span>
+<span class="sd">        :type line: Line</span>
+<span class="sd">        :type route: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Bus</span><span class="o">.</span><span class="n">BUS_COUNTER</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__line</span> <span class="o">=</span> <span class="n">line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__route</span> <span class="o">=</span> <span class="n">route</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__next_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__id</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">BUS_COUNTER</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__time_to_next_stop_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span><span class="p">]</span><span class="o">.</span><span class="n">time_to_next_stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ticks_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__route_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">route</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: bus route index</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__route</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_stop_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: name of the current stop</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">next_stop_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: name of the next stop</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__next_stop_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: bus id</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: current stop index</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: bus line</span>
+<span class="sd">        :rtype: Line</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__line</span>
+
+<div class="viewcode-block" id="Bus.move"><a class="viewcode-back" href="../../simulation.html#simulation.bus.Bus.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs move to next position on bus</span>
+<span class="sd">        :rtype: None</span>
+<span class="sd">        :return: mone</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_to_next_stop</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_stop_name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__next_stop_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__route_len</span> <span class="o">-</span> <span class="mi">2</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_to_next_stop</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__current_stop</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">__route_len</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__time_to_next_stop_base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_stop</span><span class="p">]</span><span class="o">.</span><span class="n">time_to_next_stop</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ticks_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ticks_count</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Bus.fill"><a class="viewcode-back" href="../../simulation.html#simulation.bus.Bus.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passenger_groups</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fills bus with passengers from passenger groups</span>
+<span class="sd">        :param passenger_groups: array of passenger groups</span>
+<span class="sd">        :type passenger_groups list[PassengersGroup]</span>
+<span class="sd">        :rtype: list{PassengersGroup]</span>
+<span class="sd">        :return: list of passengers groups of passengers who didn&#39;t fit into the bus</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>
+        <span class="n">in_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">bus_capacity</span> <span class="o">-</span> <span class="n">count</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">passenger_groups</span><span class="p">:</span>
+            <span class="n">in_count</span> <span class="o">+=</span> <span class="n">group</span><span class="o">.</span><span class="n">count</span>
+        <span class="k">if</span> <span class="n">space</span> <span class="o">&gt;=</span> <span class="n">in_count</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">stop_group</span> <span class="ow">in</span> <span class="n">passenger_groups</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengers</span><span class="p">)):</span>
+                    <span class="n">bus_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">stop_group</span><span class="o">.</span><span class="n">destination</span><span class="p">:</span>
+                        <span class="n">bus_group</span> <span class="o">+=</span> <span class="n">stop_group</span>
+                        <span class="k">break</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengers</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stop_group</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">passengers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">passenger_groups</span><span class="p">:</span>
+                <span class="n">passengers</span> <span class="o">+=</span> <span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">destination</span><span class="p">]</span> <span class="o">*</span> <span class="n">group</span><span class="o">.</span><span class="n">count</span>
+            <span class="n">shuffle</span><span class="p">(</span><span class="n">passengers</span><span class="p">)</span>
+
+            <span class="n">lucky_passengers</span> <span class="o">=</span> <span class="n">passengers</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">space</span><span class="p">]</span>
+            <span class="n">Bus</span><span class="o">.</span><span class="n">__fill_with_groups</span><span class="p">(</span><span class="n">lucky_passengers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengers</span><span class="p">)</span>
+            <span class="n">passengers</span> <span class="o">=</span> <span class="n">passengers</span><span class="p">[</span><span class="n">space</span><span class="p">:]</span>
+            <span class="n">not_lucky_passenger_groups</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">Bus</span><span class="o">.</span><span class="n">__fill_with_groups</span><span class="p">(</span><span class="n">passengers</span><span class="p">,</span> <span class="n">not_lucky_passenger_groups</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">not_lucky_passenger_groups</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__fill_with_groups</span><span class="p">(</span><span class="n">passengers</span><span class="p">,</span> <span class="n">group_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        fills group_list with PassengersGrpups made from passenegers</span>
+<span class="sd">        :param passengers: list of destination stop names, one for every passenger</span>
+<span class="sd">        :param group_list:</span>
+<span class="sd">        :type passengers: list[str]</span>
+<span class="sd">        :type group_list: list[PassengersGroup]</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">passenger</span> <span class="ow">in</span> <span class="n">passengers</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">group_list</span><span class="p">)):</span>
+                <span class="n">group</span> <span class="o">=</span> <span class="n">group_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">passenger</span> <span class="o">==</span> <span class="n">group</span><span class="o">.</span><span class="n">destination</span><span class="p">:</span>
+                    <span class="n">group</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">break</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">group_list</span><span class="p">):</span>
+                <span class="n">group_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PassengersGroup</span><span class="p">(</span><span class="n">passenger</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: number of passengers in bus</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="n">group</span><span class="o">.</span><span class="n">count</span>
+        <span class="k">return</span> <span class="n">count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">time_to_next_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: time to next stop in ticks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__time_to_next_stop_base</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ticks_count</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Anna gese, Marcin Malinowski, Bartosz Soból.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>
