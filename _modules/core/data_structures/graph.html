@@ -49,14 +49,19 @@
           <div class="body" role="main">
             
   <h1>Source code for core.data_structures.graph</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
-
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains Node and Graph classes with related functions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">inf</span>
-
-<span class="kn">from</span> <span class="nn">core.configuration</span> <span class="k">import</span> <span class="n">config</span>
 
 <span class="n">Edge</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Edge&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">])</span>
 <span class="n">NodeLengthPair</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;NodeLengthPair&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">])</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">queue</span> <span class="k">import</span> <span class="n">Queue</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">Queue</span> <span class="k">import</span> <span class="n">Queue</span>
 
 
 <div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../core.data_structures.html#core.data_structures.graph.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
@@ -145,12 +150,12 @@
 <span class="sd">        :rtype: Graph</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="p">{}</span>
-        
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
-            <span class="n">nodes</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
-                <span class="n">connect_one_way</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">node_name</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+            <span class="n">nodes</span><span class="p">[</span><span class="n">node_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node_name</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">second_node_data</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">node_name</span><span class="p">]:</span>
+                <span class="n">connect_one_way</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_name</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="n">second_node_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">second_node_data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">Graph</span><span class="p">(</span><span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
@@ -160,16 +165,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: dict[str,Node]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__populate_graph</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_tuple</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        :param input:</span>
-<span class="sd">        :type input: tuple(str,str)</span>
+<span class="sd">        :param item_tuple:</span>
+<span class="sd">        :type item_tuple: tuple(str,str)</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span><span class="p">[</span><span class="nb">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span><span class="p">[</span><span class="n">item_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
         <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="nb">input</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">item_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">edge</span><span class="o">.</span><span class="n">weight</span>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
 
@@ -199,7 +204,6 @@
 <span class="sd">        :return:</span>
 <span class="sd">        :rtype: Iterator[Node]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">queue</span> <span class="k">import</span> <span class="n">Queue</span>
         <span class="n">output_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
         <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>

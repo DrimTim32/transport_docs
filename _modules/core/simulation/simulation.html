@@ -49,122 +49,198 @@
           <div class="body" role="main">
             
   <h1>Source code for core.simulation.simulation</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">time</span>
-
-<span class="kn">from</span> <span class="nn">core.data_structures</span> <span class="k">import</span> <span class="n">Graph</span>
-<span class="kn">from</span> <span class="nn">core.data_structures.transport_structures</span> <span class="k">import</span> <span class="n">Bus</span>
-<span class="kn">from</span> <span class="nn">core.data_structures.transport_structures</span> <span class="k">import</span> <span class="n">Stop</span>
-<span class="kn">from</span> <span class="nn">core.simulation.bus_collector</span> <span class="k">import</span> <span class="n">BusCollector</span>
-<span class="kn">from</span> <span class="nn">core.simulation.generators</span> <span class="k">import</span> <span class="n">BusGenerator</span>
-<span class="kn">from</span> <span class="nn">core.simulation.line</span> <span class="k">import</span> <span class="n">LineStop</span><span class="p">,</span> <span class="n">Line</span>
-<span class="kn">from</span> <span class="nn">core.simulation.status_printer</span> <span class="k">import</span> <span class="n">StatusPrinter</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File containing main Simulation class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">data_structures</span> <span class="k">import</span> <span class="n">Graph</span>
+<span class="kn">from</span> <span class="nn">.bus</span> <span class="k">import</span> <span class="n">Bus</span>
+<span class="kn">from</span> <span class="nn">.generators</span> <span class="k">import</span> <span class="n">PoissonPassengerGenerator</span>
+<span class="kn">from</span> <span class="nn">.line</span> <span class="k">import</span> <span class="n">LineStop</span><span class="p">,</span> <span class="n">Line</span>
+<span class="kn">from</span> <span class="nn">.passenger_group</span> <span class="k">import</span> <span class="n">PassengersGroup</span>
+<span class="kn">from</span> <span class="nn">.stop</span> <span class="k">import</span> <span class="n">Stop</span>
 
 
 <div class="viewcode-block" id="Simulation"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.simulation.Simulation">[docs]</a><span class="k">class</span> <span class="nc">Simulation</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Read configuration and do sth with it&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This class represents simulation&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">passenger_generator</span><span class="o">=</span><span class="n">PoissonPassengerGenerator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read configuration and do sth with it</span>
+<span class="sd">        :param config</span>
+<span class="sd">        :type config: Config</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Bus</span><span class="o">.</span><span class="n">BUS_COUNTER</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">finished</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">buses</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stops</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bus_generator</span> <span class="o">=</span> <span class="n">BusGenerator</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bus_collector</span> <span class="o">=</span> <span class="n">BusCollector</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">printer</span> <span class="o">=</span> <span class="n">StatusPrinter</span><span class="p">()</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__create_stops</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">stops</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">graph_dict</span><span class="p">)</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">             A - 1 - B - 2 - C - 1 - D</span>
-<span class="sd">             |       |</span>
-<span class="sd">             1       5</span>
-<span class="sd">             |       |</span>
-<span class="sd">             E - 1 - F</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">graph_dict</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__create_lines</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">lines_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__passengers_generator</span> <span class="o">=</span> <span class="n">passenger_generator</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">traffic_data_dict</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Simulation.mainloop"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.simulation.Simulation.mainloop">[docs]</a>    <span class="k">def</span> <span class="nf">mainloop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__print</span><span class="p">()</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span></div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns buses in simulation&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span>
 
-    <span class="k">def</span> <span class="nf">__print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stops</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns stops in simulation&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns lines in simulation&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span>
+
+<div class="viewcode-block" id="Simulation.refresh"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.simulation.Simulation.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main loop</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__update</span><span class="p">()</span></div>
+            <span class="c1"># self._print()</span>
+
+    <span class="k">def</span> <span class="nf">_print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        tego nie bydzie, nie komentuje</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;________________________________________________________&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;STEP &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buses</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Bus{ id:&#39;</span><span class="p">,</span> <span class="n">bus</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s1">&#39;line:&#39;</span><span class="p">,</span> <span class="n">bus</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="s1">&#39;route:&#39;</span><span class="p">,</span> <span class="n">bus</span><span class="o">.</span><span class="n">route</span><span class="p">,</span> <span class="s1">&#39;last stop:&#39;</span><span class="p">,</span>
                       <span class="n">bus</span><span class="o">.</span><span class="n">current_stop_name</span><span class="p">,</span>
                       <span class="s1">&#39; next stop:&#39;</span><span class="p">,</span> <span class="n">bus</span><span class="o">.</span><span class="n">next_stop_name</span><span class="p">,</span> <span class="s1">&#39;time to next:&#39;</span><span class="p">,</span> <span class="n">bus</span><span class="o">.</span><span class="n">time_to_next_stop</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span> <span class="n">group</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">stop</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;________________&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>
+                    <span class="n">wait</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">destination</span><span class="p">,</span> <span class="n">group</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        updates simulation state</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__update_stops</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__update_buses</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__update_passengers</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__clean_buses</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__generate_buses</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">__update_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates stops&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">dest</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">src</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">dest</span><span class="p">:</span>
+                    <span class="n">new_passengers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__passengers_generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">new_passengers</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">source_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span><span class="p">[</span><span class="n">src</span><span class="p">]</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="k">while</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">source_stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">)):</span>
+                            <span class="n">stop_group</span> <span class="o">=</span> <span class="n">source_stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">stop_group</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">dest</span><span class="p">:</span>
+                                <span class="n">stop_group</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="n">new_passengers</span>
+                                <span class="k">break</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">source_stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">):</span>
+                            <span class="n">source_stop</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PassengersGroup</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">new_passengers</span><span class="p">))</span>
+
     <span class="k">def</span> <span class="nf">__update_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buses</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Updates buses&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span><span class="p">:</span>
             <span class="n">bus</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__update_passengers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buses</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">bus</span><span class="o">.</span><span class="n">ticks_to_next_stop</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__transfer_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stops</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">current_stop_name</span><span class="p">],</span> <span class="n">bus</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__transfer_between</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stops</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">current_stop_name</span><span class="p">],</span> <span class="n">bus</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__transfer_in</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stops</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">current_stop_name</span><span class="p">],</span> <span class="n">bus</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Updates passengers&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bus</span><span class="o">.</span><span class="n">time_to_next_stop</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">Simulation</span><span class="o">.</span><span class="n">__transfer_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__stops</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">current_stop_name</span><span class="p">],</span> <span class="n">bus</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__transfer_between</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__stops</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">current_stop_name</span><span class="p">],</span> <span class="n">bus</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__transfer_in</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__stops</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">current_stop_name</span><span class="p">],</span> <span class="n">bus</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__transfer_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">bus</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__transfer_out</span><span class="p">(</span><span class="n">stop</span><span class="p">,</span> <span class="n">bus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;here passengers exit buses&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">bus_group</span> <span class="ow">in</span> <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>  <span class="c1"># wysiadanie</span>
             <span class="k">if</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">stop</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
                 <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bus_group</span><span class="p">)</span>
                 <span class="k">break</span>
 
     <span class="k">def</span> <span class="nf">__transfer_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">bus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;here passengers enter buses&quot;&quot;&quot;</span>
+        <span class="n">in_groups</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">stop_group</span> <span class="ow">in</span> <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>  <span class="c1"># wsiadanie</span>
-            <span class="n">dest</span> <span class="o">=</span> <span class="n">stop_group</span><span class="o">.</span><span class="n">destination</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">get_path_between</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dest</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">bus</span><span class="o">.</span><span class="n">next_stop_name</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">)):</span>
-                    <span class="k">if</span> <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">dest</span><span class="p">:</span>
-                        <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stop_group</span>
-                        <span class="k">break</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">):</span>
-                    <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stop_group</span><span class="p">)</span>
+            <span class="n">destination</span> <span class="o">=</span> <span class="n">stop_group</span><span class="o">.</span><span class="n">destination</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span><span class="o">.</span><span class="n">get_path_between</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">destination</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">bus</span><span class="o">.</span><span class="n">next_stop_name</span><span class="p">:</span>
+                <span class="n">in_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stop_group</span><span class="p">)</span>
+        <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span> <span class="k">if</span> <span class="n">group</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">in_groups</span><span class="p">]</span>
+        <span class="n">groups_after_fill</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">in_groups</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups_after_fill</span><span class="p">:</span>
+            <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__transfer_between</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">bus</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">bus_group</span> <span class="ow">in</span> <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>  <span class="c1"># przesiadanie</span>
-            <span class="k">pass</span>  <span class="c1"># TODO</span>
+        <span class="sd">&quot;&quot;&quot;here passengers transfer between buses&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">bus_group</span> <span class="ow">in</span> <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>  <span class="c1"># wysiadanie do przesiadki</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span><span class="o">.</span><span class="n">get_path_between</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">destination</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">bus</span><span class="o">.</span><span class="n">next_stop_name</span><span class="p">:</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">while</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">)):</span>
+                    <span class="n">stop_group</span> <span class="o">=</span> <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">stop_group</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">destination</span><span class="p">:</span>
+                        <span class="n">stop_group</span> <span class="o">+=</span> <span class="n">bus_group</span>
+                        <span class="k">break</span>
+                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="p">):</span>
+                    <span class="n">stop</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bus_group</span><span class="p">)</span>
+                <span class="n">bus</span><span class="o">.</span><span class="n">passengers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bus_group</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__generate_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generates buses&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span><span class="p">:</span>
             <span class="n">new_buses</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">tick</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">new_buses</span><span class="p">)):</span>
                 <span class="k">if</span> <span class="n">new_buses</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">buses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Bus</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Bus</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__clean_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="n">bus</span> <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buses</span> <span class="k">if</span> <span class="n">bus</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">==</span> <span class="n">bus</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">last_stop</span><span class="p">(</span><span class="n">bus</span><span class="o">.</span><span class="n">route</span><span class="p">)]</span>
-        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">q</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">buses</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Clears unused buses&quot;&quot;&quot;</span>
+        <span class="n">buses_to_remove</span> <span class="o">=</span> <span class="p">[</span><span class="n">bus</span> <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span> <span class="k">if</span> <span class="n">bus</span><span class="o">.</span><span class="n">current_stop</span> <span class="o">==</span> <span class="n">bus</span><span class="o">.</span><span class="n">line</span><span class="o">.</span><span class="n">last_stop</span><span class="p">(</span><span class="n">bus</span><span class="o">.</span><span class="n">route</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="n">buses_to_remove</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__buses</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bus</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__create_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Builds lines&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">route1</span><span class="p">,</span> <span class="n">route2</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
             <span class="n">curr_route</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="s1">&#39;route1&#39;</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr_route</span><span class="p">)):</span>
                 <span class="n">route1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LineStop</span><span class="p">(</span><span class="n">curr_route</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                                       <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="n">curr_route</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">curr_route</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">curr_route</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span><span class="p">[</span><span class="n">curr_route</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">curr_route</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span>
+                                           <span class="n">curr_route</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
 
             <span class="n">curr_route</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="s1">&#39;route2&#39;</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">curr_route</span><span class="p">)):</span>
                 <span class="n">route2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LineStop</span><span class="p">(</span><span class="n">curr_route</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                                       <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="n">curr_route</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">curr_route</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">curr_route</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">__graph</span><span class="p">[</span><span class="n">curr_route</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">curr_route</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span>
+                                           <span class="n">curr_route</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">route1</span><span class="p">,</span> <span class="n">route2</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">route1</span><span class="p">,</span> <span class="n">route2</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__create_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stops</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stops</span> <span class="o">=</span> <span class="p">{</span><span class="n">stop_name</span><span class="p">:</span> <span class="n">Stop</span><span class="p">(</span><span class="n">stop_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">stop_name</span> <span class="ow">in</span> <span class="n">stops</span><span class="p">}</span></div>
+        <span class="sd">&quot;&quot;&quot;Creates stops&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span> <span class="o">=</span> <span class="p">{</span><span class="n">stop_name</span><span class="p">:</span> <span class="n">Stop</span><span class="p">(</span><span class="n">stop_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">stop_name</span> <span class="ow">in</span> <span class="n">stops</span><span class="p">}</span></div>
 </pre></div>
 
           </div>

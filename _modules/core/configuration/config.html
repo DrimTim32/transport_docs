@@ -49,20 +49,34 @@
           <div class="body" role="main">
             
   <h1>Source code for core.configuration.config</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File containing Config class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
 
 <div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../core.configuration.html#core.configuration.config.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">connections</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stops</span> <span class="o">=</span> <span class="n">stops</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span> <span class="o">=</span> <span class="n">connections</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Configuration class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stops</span><span class="p">,</span> <span class="n">connections</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">traffic_data</span><span class="p">,</span> <span class="n">tick</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span> <span class="o">=</span> <span class="n">stops</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__connections</span> <span class="o">=</span> <span class="n">connections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span> <span class="o">=</span> <span class="n">lines</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__traffic_data</span> <span class="o">=</span> <span class="n">traffic_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tick</span> <span class="o">=</span> <span class="n">tick</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Config.from_config_file"><a class="viewcode-back" href="../../../core.configuration.html#core.configuration.config.Config.from_config_file">[docs]</a>    <span class="k">def</span> <span class="nf">from_config_file</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Config</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;stops&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;connections&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lines&#39;</span><span class="p">])</span></div>
+<div class="viewcode-block" id="Config.from_config_file"><a class="viewcode-back" href="../../../core.configuration.html#core.configuration.config.Config.from_config_file">[docs]</a>    <span class="k">def</span> <span class="nf">from_config_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param file_name: name of file with configuration</span>
+<span class="sd">        :type file_name: str</span>
+<span class="sd">        :return: Config object constructed from given file</span>
+<span class="sd">        :rtype: Config</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Config</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;stops&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;connections&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lines&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;traffic_data&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tick&#39;</span><span class="p">])</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">graph_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -70,7 +84,7 @@
 <span class="sd">        :return: returns graph description</span>
 <span class="sd">        :rtype: dict[str,List[tuple[str,int]]]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connections</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connections</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">lines_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -78,7 +92,32 @@
 <span class="sd">        :return: returns dict of lines</span>
 <span class="sd">        :rtype: dict[str,dict[str,str]]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">line</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">):</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">line</span><span class="p">}</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="n">line</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">):</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">line</span><span class="p">}</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">traffic_data_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: dict with passenger traffic data</span>
+<span class="sd">        :rtype: dict[str,dict[str, int]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">source</span><span class="p">:</span> <span class="p">{</span><span class="n">dest</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">dest</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">dest</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__traffic_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">source</span><span class="p">)}</span>
+                <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__traffic_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stops</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: list of stops</span>
+<span class="sd">        :rtype: List[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stops</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: number of seconds per tick</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tick</span></div>
 </pre></div>
 
           </div>

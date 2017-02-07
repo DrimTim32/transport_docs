@@ -49,9 +49,36 @@
           <div class="body" role="main">
             
   <h1>Source code for core.simulation.generators.passenger_generator</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="PassengerGenerator"><a class="viewcode-back" href="../../../../core.simulation.generators.html#core.simulation.generators.passenger_generator.PassengerGenerator">[docs]</a><span></span><span class="k">class</span> <span class="nc">PassengerGenerator</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File containing PoissonPassengerGenerator class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="PoissonPassengerGenerator"><a class="viewcode-back" href="../../../../core.simulation.generators.html#core.simulation.generators.passenger_generator.PoissonPassengerGenerator">[docs]</a><span class="k">class</span> <span class="nc">PoissonPassengerGenerator</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Basic passenger generator class based on poisson distribution</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes generator with statistical data about passenger traffic</span>
+<span class="sd">        :param data: data with means</span>
+<span class="sd">        :type: data: dict[str, dict[str, int]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__data</span> <span class="o">=</span> <span class="n">data</span>
+
+<div class="viewcode-block" id="PoissonPassengerGenerator.generate"><a class="viewcode-back" href="../../../../core.simulation.generators.html#core.simulation.generators.passenger_generator.PoissonPassengerGenerator.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates passengers</span>
+<span class="sd">        :param origin: origin stop name</span>
+<span class="sd">        :param destination: destination stop name</span>
+<span class="sd">        :type origin: str</span>
+<span class="sd">        :type destination: str</span>
+<span class="sd">        :return: how many passengers heading to deastination stop will be added to origin stop</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="n">origin</span><span class="p">][</span><span class="n">destination</span><span class="p">]</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>

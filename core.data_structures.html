@@ -27,7 +27,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="core.simulation package" href="core.simulation.html" />
+    <link rel="next" title="core.drawing package" href="core.drawing.html" />
     <link rel="prev" title="core.configuration package" href="core.configuration.html" /> 
   </head>
   <body role="document">
@@ -41,7 +41,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="core.simulation.html" title="core.simulation package"
+          <a href="core.drawing.html" title="core.drawing package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="core.configuration.html" title="core.configuration package"
@@ -63,6 +63,7 @@
 </div>
 <div class="section" id="module-core.data_structures.graph">
 <span id="core-data-structures-graph-module"></span><h2>core.data_structures.graph module<a class="headerlink" href="#module-core.data_structures.graph" title="Permalink to this headline">¶</a></h2>
+<p>This file contains Node and Graph classes with related functions.</p>
 <dl class="class">
 <dt id="core.data_structures.graph.Edge">
 <em class="property">class </em><code class="descclassname">core.data_structures.graph.</code><code class="descname">Edge</code><span class="sig-paren">(</span><em>node</em>, <em>weight</em><span class="sig-paren">)</span><a class="headerlink" href="#core.data_structures.graph.Edge" title="Permalink to this definition">¶</a></dt>
@@ -207,46 +208,9 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-core.data_structures.transport_structures">
-<span id="core-data-structures-transport-structures-module"></span><h2>core.data_structures.transport_structures module<a class="headerlink" href="#module-core.data_structures.transport_structures" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="core.data_structures.transport_structures.Bus">
-<em class="property">class </em><code class="descclassname">core.data_structures.transport_structures.</code><code class="descname">Bus</code><span class="sig-paren">(</span><em>line</em>, <em>route</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/data_structures/transport_structures.html#Bus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.data_structures.transport_structures.Bus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Bus class</p>
-<dl class="attribute">
-<dt id="core.data_structures.transport_structures.Bus.BUS_COUNTER">
-<code class="descname">BUS_COUNTER</code><em class="property"> = 1</em><a class="headerlink" href="#core.data_structures.transport_structures.Bus.BUS_COUNTER" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="core.data_structures.transport_structures.Bus.move">
-<code class="descname">move</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/data_structures/transport_structures.html#Bus.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.data_structures.transport_structures.Bus.move" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="core.data_structures.transport_structures.Bus.time_to_next_stop">
-<code class="descname">time_to_next_stop</code><a class="headerlink" href="#core.data_structures.transport_structures.Bus.time_to_next_stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="core.data_structures.transport_structures.PassengersGroup">
-<em class="property">class </em><code class="descclassname">core.data_structures.transport_structures.</code><code class="descname">PassengersGroup</code><span class="sig-paren">(</span><em>destination</em>, <em>count</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/data_structures/transport_structures.html#PassengersGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.data_structures.transport_structures.PassengersGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Group of passengers going to the same bus stop</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="core.data_structures.transport_structures.Stop">
-<em class="property">class </em><code class="descclassname">core.data_structures.transport_structures.</code><code class="descname">Stop</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/data_structures/transport_structures.html#Stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.data_structures.transport_structures.Stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-</dd></dl>
-
-</div>
 <div class="section" id="module-core.data_structures">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.data_structures" title="Permalink to this headline">¶</a></h2>
+<p>Package contains graph data structure</p>
 </div>
 </div>
 
@@ -261,7 +225,6 @@
 <li><a class="reference internal" href="#">core.data_structures package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-core.data_structures.graph">core.data_structures.graph module</a></li>
-<li><a class="reference internal" href="#module-core.data_structures.transport_structures">core.data_structures.transport_structures module</a></li>
 <li><a class="reference internal" href="#module-core.data_structures">Module contents</a></li>
 </ul>
 </li>
@@ -271,8 +234,8 @@
   <p class="topless"><a href="core.configuration.html"
                         title="previous chapter">core.configuration package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="core.simulation.html"
-                        title="next chapter">core.simulation package</a></p>
+  <p class="topless"><a href="core.drawing.html"
+                        title="next chapter">core.drawing package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -304,7 +267,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="core.simulation.html" title="core.simulation package"
+          <a href="core.drawing.html" title="core.drawing package"
              >next</a> |</li>
         <li class="right" >
           <a href="core.configuration.html" title="core.configuration package"

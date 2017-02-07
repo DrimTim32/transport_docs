@@ -49,29 +49,104 @@
           <div class="body" role="main">
             
   <h1>Source code for core.simulation.line</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File containing Line class</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
 
 <span class="n">LineStop</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;LineStop&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;time_to_next_stop&#39;</span><span class="p">])</span>
 
 
 <div class="viewcode-block" id="Line"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.line.Line">[docs]</a><span class="k">class</span> <span class="nc">Line</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Line class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line_data</span><span class="p">,</span> <span class="n">route1</span><span class="p">,</span> <span class="n">route2</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bus_capacity</span> <span class="o">=</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;bus_capacity&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency1&#39;</span><span class="p">],</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency2&#39;</span><span class="p">]]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">routes</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LineStop</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">+</span> <span class="n">route1</span><span class="p">,</span> <span class="p">[</span><span class="n">LineStop</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">+</span> <span class="n">route2</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_bus</span> <span class="o">=</span> <span class="p">[</span><span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency1&#39;</span><span class="p">],</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency2&#39;</span><span class="p">]]</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param line_data: specification of line (&#39;id&#39;, &#39;bus_capacity&#39;, &#39;frequency1&#39;, &#39;frequency2&#39;)</span>
+<span class="sd">        :param route1: specification of stops on route1</span>
+<span class="sd">        :param route2: specification of stops on route2</span>
+<span class="sd">        :type line_data: dict</span>
+<span class="sd">        :type route1: list[LineStop]</span>
+<span class="sd">        :type route2: list[LineStop]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__number</span> <span class="o">=</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bus_capacity</span> <span class="o">=</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;bus_capacity&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__frequencies</span> <span class="o">=</span> <span class="p">[</span><span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency1&#39;</span><span class="p">],</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency2&#39;</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__routes</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LineStop</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">+</span> <span class="n">route1</span><span class="p">,</span> <span class="p">[</span><span class="n">LineStop</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">+</span> <span class="n">route2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__last_bus</span> <span class="o">=</span> <span class="p">[</span><span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency1&#39;</span><span class="p">],</span> <span class="n">line_data</span><span class="p">[</span><span class="s1">&#39;frequency2&#39;</span><span class="p">]]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns line number</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__number</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bus_capacity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns how many passengers can fit to buses on this line</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__bus_capacity</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns how frequent buses are being sent from depot</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__frequencies</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">routes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns line routes</span>
+<span class="sd">        :rtype: list[list[LineStop]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__routes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns last bus&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__last_bus</span>
 
 <div class="viewcode-block" id="Line.first_stop_name"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.line.Line.first_stop_name">[docs]</a>    <span class="k">def</span> <span class="nf">first_stop_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="n">route</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span></div>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param route: route</span>
+<span class="sd">        :type route: int</span>
+<span class="sd">        :return: Name of the first stop on given route</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="n">route</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span></div>
 
 <div class="viewcode-block" id="Line.last_stop_name"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.line.Line.last_stop_name">[docs]</a>    <span class="k">def</span> <span class="nf">last_stop_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param route: route</span>
+<span class="sd">        :type route: int</span>
+<span class="sd">        :return: Name of the last stop on given route</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="n">route</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span></div>
 
 <div class="viewcode-block" id="Line.last_stop"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.line.Line.last_stop">[docs]</a>    <span class="k">def</span> <span class="nf">last_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param route: route</span>
+<span class="sd">        :type route: int</span>
+<span class="sd">        :return: index of the last stop on given route</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="n">route</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="Line.tick"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.line.Line.tick">[docs]</a>    <span class="k">def</span> <span class="nf">tick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds 1 to time from last bus on routes 1 and 2</span>
+<span class="sd">        :return: if buses should be putted on routes 1 and 2</span>
+<span class="sd">        :rtype: list[bool]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">new_buses</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_bus</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_bus</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>

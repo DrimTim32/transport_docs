@@ -63,14 +63,28 @@
 </div>
 <div class="section" id="module-core.configuration.config">
 <span id="core-configuration-config-module"></span><h2>core.configuration.config module<a class="headerlink" href="#module-core.configuration.config" title="Permalink to this headline">¶</a></h2>
+<p>File containing Config class</p>
 <dl class="class">
 <dt id="core.configuration.config.Config">
-<em class="property">class </em><code class="descclassname">core.configuration.config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>stops</em>, <em>connections</em>, <em>lines</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/configuration/config.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.configuration.config.Config" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">core.configuration.config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>stops</em>, <em>connections</em>, <em>lines</em>, <em>traffic_data</em>, <em>tick</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/configuration/config.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.configuration.config.Config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Configuration class</p>
 <dl class="staticmethod">
 <dt id="core.configuration.config.Config.from_config_file">
-<em class="property">static </em><code class="descname">from_config_file</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/configuration/config.html#Config.from_config_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.configuration.config.Config.from_config_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">static </em><code class="descname">from_config_file</code><span class="sig-paren">(</span><em>file_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/configuration/config.html#Config.from_config_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.configuration.config.Config.from_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>str</em>) &#8211; name of file with configuration</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Config object constructed from given file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#core.configuration.config.Config" title="core.configuration.config.Config">Config</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="core.configuration.config.Config.graph_dict">
@@ -97,6 +111,51 @@
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">returns dict of lines</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict[str,dict[str,str]]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.configuration.config.Config.stops">
+<code class="descname">stops</code><a class="headerlink" href="#core.configuration.config.Config.stops" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of stops</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[str]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.configuration.config.Config.tick">
+<code class="descname">tick</code><a class="headerlink" href="#core.configuration.config.Config.tick" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">number of seconds per tick</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="core.configuration.config.Config.traffic_data_dict">
+<code class="descname">traffic_data_dict</code><a class="headerlink" href="#core.configuration.config.Config.traffic_data_dict" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict with passenger traffic data</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict[str,dict[str, int]]</td>
 </tr>
 </tbody>
 </table>

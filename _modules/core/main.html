@@ -49,32 +49,48 @@
           <div class="body" role="main">
             
   <h1>Source code for core.main</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span></span><span class="sd">&quot;&quot;&quot;This file contains main method for project&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">core.configuration</span> <span class="k">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">core.simulation.simulation</span> <span class="k">import</span> <span class="o">*</span>
-
-
-<div class="viewcode-block" id="read_configuration"><a class="viewcode-back" href="../../core.html#core.main.read_configuration">[docs]</a><span class="k">def</span> <span class="nf">read_configuration</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">from_config_file</span><span class="p">(</span><span class="s2">&quot;config.json&quot;</span><span class="p">)</span></div>
+<span class="kn">from</span> <span class="nn">configuration</span> <span class="k">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">drawing.gui</span> <span class="k">import</span> <span class="n">GUI</span>
+<span class="kn">from</span> <span class="nn">simulation.simulation</span> <span class="k">import</span> <span class="n">Simulation</span>
 
 
-<div class="viewcode-block" id="entrypoint"><a class="viewcode-back" href="../../core.html#core.main.entrypoint">[docs]</a><span class="k">def</span> <span class="nf">entrypoint</span><span class="p">():</span>
-    <span class="n">configuration</span> <span class="o">=</span> <span class="n">read_configuration</span><span class="p">()</span>
+<div class="viewcode-block" id="read_configuration"><a class="viewcode-back" href="../../core.html#core.main.read_configuration">[docs]</a><span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reads configuration from file in path&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">from_config_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="entry_point"><a class="viewcode-back" href="../../core.html#core.main.entry_point">[docs]</a><span class="k">def</span> <span class="nf">entry_point</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Entry point for application</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">read_configuration</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Configuration readed succesfully.&quot;</span><span class="p">)</span>
     <span class="n">simulation</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
-    <span class="n">simulation</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running simulation.&quot;</span><span class="p">)</span>
+    <span class="n">GUI</span><span class="p">(</span><span class="n">simulation</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">exit</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../core.html#core.main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">entrypoint</span><span class="p">()</span></div>
-    <span class="c1"># try:</span>
-    <span class="c1">#     entrypoint()</span>
-    <span class="c1"># except Exception as e:</span>
-    <span class="c1">#     print(&quot;{0}, message : {1}&quot;.format(sys.stderr, e))</span>
-    <span class="c1">#     return 2</span>
+    <span class="sd">&quot;&quot;&quot;This is main method for this file&quot;&quot;&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;config.json&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Configuration file is not provided, using default.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">entry_point</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">, message : </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">exc</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mi">2</span></div>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 
           </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.simulation.status_printer &#8212; py_proj_transport 0.1.1 documentation</title>
+    <title>core.simulation.stop &#8212; py_proj_transport 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -48,11 +48,44 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for core.simulation.status_printer</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="StatusPrinter"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.status_printer.StatusPrinter">[docs]</a><span></span><span class="k">class</span> <span class="nc">StatusPrinter</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+  <h1>Source code for core.simulation.stop</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">File containing Bus class</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
+
+<div class="viewcode-block" id="Stop"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.stop.Stop">[docs]</a><span class="k">class</span> <span class="nc">Stop</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bus Stop class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param name: name of stop</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengers</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Stop.count"><a class="viewcode-back" href="../../../core.simulation.html#core.simulation.stop.Stop.count">[docs]</a>    <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: number of passengers waiting for bus to specific destination</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group</span><span class="o">.</span><span class="n">destination</span> <span class="o">==</span> <span class="n">destination</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">count</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">count</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: name of stop</span>
+<span class="sd">        :rtype str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span></div>
 </pre></div>
 
           </div>

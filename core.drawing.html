@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.simulation.generators package &#8212; py_proj_transport 0.1.1 documentation</title>
+    <title>core.drawing package &#8212; py_proj_transport 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -27,7 +27,8 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="core.simulation package" href="core.simulation.html" /> 
+    <link rel="next" title="core.simulation package" href="core.simulation.html" />
+    <link rel="prev" title="core.data_structures package" href="core.data_structures.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,10 +42,12 @@
              >modules</a> |</li>
         <li class="right" >
           <a href="core.simulation.html" title="core.simulation package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="core.data_structures.html" title="core.data_structures package"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="core.html" >core package</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="core.simulation.html" accesskey="U">core.simulation package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="core.html" accesskey="U">core package</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -53,35 +56,31 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="core-simulation-generators-package">
-<h1>core.simulation.generators package<a class="headerlink" href="#core-simulation-generators-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="core-drawing-package">
+<h1>core.drawing package<a class="headerlink" href="#core-drawing-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-core.simulation.generators.passenger_generator">
-<span id="core-simulation-generators-passenger-generator-module"></span><h2>core.simulation.generators.passenger_generator module<a class="headerlink" href="#module-core.simulation.generators.passenger_generator" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-core.drawing.gui">
+<span id="core-drawing-gui-module"></span><h2>core.drawing.gui module<a class="headerlink" href="#module-core.drawing.gui" title="Permalink to this headline">¶</a></h2>
+<p>This file contains GUI class</p>
 <dl class="class">
-<dt id="core.simulation.generators.passenger_generator.PoissonPassengerGenerator">
-<em class="property">class </em><code class="descclassname">core.simulation.generators.passenger_generator.</code><code class="descname">PoissonPassengerGenerator</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/generators/passenger_generator.html#PoissonPassengerGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.generators.passenger_generator.PoissonPassengerGenerator" title="Permalink to this definition">¶</a></dt>
+<dt id="core.drawing.gui.GUI">
+<em class="property">class </em><code class="descclassname">core.drawing.gui.</code><code class="descname">GUI</code><span class="sig-paren">(</span><em>simulation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/drawing/gui.html#GUI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.drawing.gui.GUI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Basic passenger generator class based on poisson distribution</p>
+<p>This class handles windows for the project</p>
 <dl class="method">
-<dt id="core.simulation.generators.passenger_generator.PoissonPassengerGenerator.generate">
-<code class="descname">generate</code><span class="sig-paren">(</span><em>origin</em>, <em>destination</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/simulation/generators/passenger_generator.html#PoissonPassengerGenerator.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.simulation.generators.passenger_generator.PoissonPassengerGenerator.generate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates passengers
-:param origin: origin stop name
-:param destination: destination stop name
-:type origin: str
-:type destination: str
-:return: how many passengers heading to deastination stop will be added to origin stop
-:rtype: int</p>
+<dt id="core.drawing.gui.GUI.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/core/drawing/gui.html#GUI.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#core.drawing.gui.GUI.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>mainloop of GUI with timer
+:return: None</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="module-core.simulation.generators">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.simulation.generators" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-core.drawing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-core.drawing" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -93,21 +92,24 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">core.simulation.generators package</a><ul>
+<li><a class="reference internal" href="#">core.drawing package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-core.simulation.generators.passenger_generator">core.simulation.generators.passenger_generator module</a></li>
-<li><a class="reference internal" href="#module-core.simulation.generators">Module contents</a></li>
+<li><a class="reference internal" href="#module-core.drawing.gui">core.drawing.gui module</a></li>
+<li><a class="reference internal" href="#module-core.drawing">Module contents</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
+  <p class="topless"><a href="core.data_structures.html"
+                        title="previous chapter">core.data_structures package</a></p>
+  <h4>Next topic</h4>
   <p class="topless"><a href="core.simulation.html"
-                        title="previous chapter">core.simulation package</a></p>
+                        title="next chapter">core.simulation package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/core.simulation.generators.rst.txt"
+      <li><a href="_sources/core.drawing.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -136,10 +138,12 @@
              >modules</a> |</li>
         <li class="right" >
           <a href="core.simulation.html" title="core.simulation package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="core.data_structures.html" title="core.data_structures package"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">py_proj_transport 0.1.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="core.html" >core package</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="core.simulation.html" >core.simulation package</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="core.html" >core package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

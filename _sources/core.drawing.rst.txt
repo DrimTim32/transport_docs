@@ -1,0 +1,22 @@
+core.drawing package
+====================
+
+Submodules
+----------
+
+core.drawing.gui module
+-----------------------
+
+.. automodule:: core.drawing.gui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: core.drawing
+    :members:
+    :undoc-members:
+    :show-inheritance:

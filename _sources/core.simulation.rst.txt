@@ -11,10 +11,10 @@ Subpackages
 Submodules
 ----------
 
-core.simulation.bus_collector module
-------------------------------------
+core.simulation.bus module
+--------------------------
 
-.. automodule:: core.simulation.bus_collector
+.. automodule:: core.simulation.bus
     :members:
     :undoc-members:
     :show-inheritance:
@@ -27,6 +27,14 @@ core.simulation.line module
     :undoc-members:
     :show-inheritance:
 
+core.simulation.passenger_group module
+--------------------------------------
+
+.. automodule:: core.simulation.passenger_group
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 core.simulation.simulation module
 ---------------------------------
 
@@ -35,10 +43,10 @@ core.simulation.simulation module
     :undoc-members:
     :show-inheritance:
 
-core.simulation.status_printer module
--------------------------------------
+core.simulation.stop module
+---------------------------
 
-.. automodule:: core.simulation.status_printer
+.. automodule:: core.simulation.stop
     :members:
     :undoc-members:
     :show-inheritance:

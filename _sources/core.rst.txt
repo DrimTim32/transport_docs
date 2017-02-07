@@ -8,6 +8,7 @@ Subpackages
 
     core.configuration
     core.data_structures
+    core.drawing
     core.simulation
 
 Submodules
